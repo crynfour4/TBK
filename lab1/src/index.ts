@@ -218,8 +218,14 @@ class User {
     getBorrowHistory() {
         return this.borrowHistory;
     }
+}
 
-    getFormattedHistory() {
+interface User {
+    getFormattedHistory(): string;
+    hasOverdueBooks(days: number): string
+}
+
+User.prototype.getFormattedHistory = function(): string {
         let history: string = '';
 
         this.borrowHistory.map((item) => {
@@ -229,7 +235,7 @@ class User {
         return history;
     }
 
-    hasOverdueBooks(days: number) {
+    User.prototype.hasOverdueBooks = function (days: number) {
         let overdueBooks: string = '';
 
         this.borrowHistory.map(book => {
@@ -242,7 +248,6 @@ class User {
 
         return overdueBooks;
     }
-}
 
 class Library {
     name: string;
@@ -731,6 +736,8 @@ library.borrowBook('denn8051@gmail.com', '9780261103573');
 // }
 
 // console.log(library.generateReport());
+
+// DATE UTILS //
 
 const date1 = '2025-01-5';
 const date2 = '2025-01-3';
